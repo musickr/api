@@ -26,11 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes(/*function (RouteRegistrar $router) {
-            //对于密码授权的方式只要这几个路由就可以了
-            config(['auth.guards.api.provider' => 'users']);
-            $router->forAccessTokens();
-        }*/);
-        //
+        Passport::routes();
+        Passport::tokensExpireIn(now()->addDay(3));
+        Passport::refreshTokensExpireIn(now()->addDay(3));
     }
 }
