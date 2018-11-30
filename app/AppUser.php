@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-
-class AppUser extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class AppUser extends Authenticatable
 {
     //
     use HasApiTokens,Notifiable;
@@ -16,6 +16,8 @@ class AppUser extends Model
         'user_name',
         'user_pwd'
     ];
+
+
     public function findForPassport($username)
     {
         return $this
@@ -24,8 +26,10 @@ class AppUser extends Model
     }
     public function validateForPassportPasswordGrant($password)
     {
+
+        return true;
         //如果请求密码等于数据库密码 返回true（此为实例，根据自己需求更改）
-        if($password == $this->user_pwd){
+        if(bcrypt($password)== $this->user_pwd){
             return true;
         }
         return false;

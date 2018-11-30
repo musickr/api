@@ -10,28 +10,50 @@ namespace App\Http\Controllers\App\Api;
 
 
 use App\AppUser;
+use App\Http\Controllers\Controller;
 use App\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Config;
 
-
-class passportController
+class passportController extends Controller
 {
+
+
     public $successStatus = 200;
+
+    public function username()
+    {
+        return 'user_account';
+    }
 
     public function authenticate()
     {
+
+
         $client = new Client();
-        try {
         $url = request()->root() . '/oauth/token';
         $params = array_merge(config('passport.proxy'), [
             'username' => request('user_name'),
             'password' => request('user_pwd'),
+            'guard' => 'app'
         ]);
+        Config::set();
+
+        $respond = $client->request('POST', $url,  ['form_params' => $params]);
+        return json_decode($respond->getBody()->getContents(), true);
+dd($respond);
+        try {
+        $url = request()->root() . '/oauth/token';
+        $params = array_merge(config('passport.proxy'), [
+            'username' => request('user_name'),
+            'password' => request('password'),
+        ],['provider' => 'app',]);
         $respond = $client->request('POST', $url,  ['form_params' => $params]);
 
         } catch (RequestException $exception) {

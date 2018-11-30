@@ -2,7 +2,10 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AuthenticateApi;
+
+
+
+use App\Http\Middleware\PassportMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,7 +71,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
+        'Custom' =>  \App\Http\Middleware\Custom::class,
+        'passport_validate' => PassportMiddleware::class,
     ];
 
     /**
