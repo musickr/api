@@ -26,25 +26,21 @@ class passportController
     public function authenticate()
     {
         $client = new Client();
-        /*try {*/
+        try {
         $url = request()->root() . '/oauth/token';
         $params = array_merge(config('passport.proxy'), [
             'username' => request('user_name'),
             'password' => request('user_pwd'),
-        ],['guard' => 'app']);
-
-
+        ]);
         $respond = $client->request('POST', $url,  ['form_params' => $params]);
-        dd($respond);
-        /*} catch (RequestException $exception) {
+
+        } catch (RequestException $exception) {
             throw  new UnauthorizedException('请求失败，服务器错误');
         }
-
         if ($respond->getStatusCode() !== 401) {
             return json_decode($respond->getBody()->getContents(), true);
         }
-
-        throw new UnauthorizedException('账号或密码错误');*/
+        throw new UnauthorizedException('账号或密码错误');
     }
 
 
