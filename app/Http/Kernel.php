@@ -2,10 +2,6 @@
 
 namespace App\Http;
 
-
-
-
-use App\Http\Middleware\PassportMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -37,15 +33,8 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            //关闭xsrf
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            /*
-             * Laravel 还提供了一种机制，用于将其它设备上的用户 Session 失效和「注销」，
-             * 而不会使其当前设备上的 Session 失效。
-             * 首先，你需要保证Illuminate\Session\Middleware\AuthenticateSession 中间件在你的app/Http/Kernel.php
-             * 类中的 web 中间件组中，并且没有被注释掉：*/
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
         ],
 
         'api' => [
@@ -71,8 +60,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'Custom' =>  \App\Http\Middleware\Custom::class,
-        'passport_validate' => PassportMiddleware::class,
     ];
 
     /**
