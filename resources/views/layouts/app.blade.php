@@ -25,6 +25,37 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header layui-bg-blue" >
+        <div class="layui-logo" style="color: #FFFFFF">
+            <i style="margin-right: 2%" class="layui-icon layui-icon-website"></i>
+            {{ config('app.name', 'Laravel') }}
+        </div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="{{ Auth::user()->photo }}" onerror="this.src='http://t.cn/RCzsdCq'" class="layui-nav-img">
+                    {{ Auth::user()->name }}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a class="" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -81,5 +112,6 @@
             @yield('content')
         </main>
     </div>
+</div>
 </body>
 </html>

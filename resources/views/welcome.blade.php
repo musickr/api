@@ -10,145 +10,120 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+        <!-- layui -->
+        <link href="{{ asset('layui/css/layui.css') }}" rel="stylesheet">
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
     </head>
+    <style>
+        html,body,.layui-container,.layui-row{
+            height: 100%;!important;
+            width: 100%;
+        }
+        /*.layui-form-label{
+            text-align: center;
+        }*/
+
+    </style>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">{{ __('Home') }}</a>
-                    @else
-                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
+<div class="layui-container" style="background: #FFFFFF;padding: 0">
+    <div class="layui-header layui-layout layui-layout-admin layui-bg-blue">
+        <div class="layui-logo" style="width:35%;color: #FFFFFF;display: flex;align-items: center;justify-content: center"><i style="font-size: 30px;margin-right: 2%" class="layui-icon layui-icon-website"></i>{{ config('app.name', 'Laravel') }}</div>
+        {{--<ul class="layui-nav layui-layout-right layui-bg-blue">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>--}}
+    </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-            <div class="content">
 
 
-
-
-                <div class="about-content">
-                    <div class="about-big-img">
-                        <div class="text_box">
-                            <div class="text">
-                                <h3>我们的信念</h3>
-                                <p>身处在前端社区的繁荣之下，我们都在有意或无意地追逐。而 layui偏偏回望当初，奔赴在返璞归真的漫漫征途，自信并勇敢着，追寻于 原生态的书写指令，试图以最简单的方式诠释高效。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="about-info">
-                        <div class="img-texts">
-                            <div class="item">
-                                <div class="layui-fluid">
-                                    <div class="layui-row">
-                                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6 img-center">
-                                            <img src="../res/static/images/gy_img1.jpg">
-                                        </div>
-                                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                            <div class="text">
-                                                <h5>About us</h5>
-                                                <h4>关于我们</h4>
-                                                <p>如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是 layui 不灭的执念。如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是 layui 不灭的执念。</p>
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="layui-row" style="display: flex;justify-content: center;margin-top: 10%">
+            <div class="layui-col-md4 layui-col-lg3">
+                <div class="layui-card ">
+                    <div class="layui-card-header">{{ __('Login') }}</div>
+                    <div class="layui-card-body">
+                        <form method="POST" class="layui-form" action="{{ route('login') }}" style="padding-right: 18%">
+                            @csrf
+                            <div class="layui-form-item">
+                                <label for="email" class="layui-form-label">
+                                    {{ __('E-Mail Address') }}
+                                </label>
+                                <div class="layui-input-block">
+                                    <input class="layui-input" id="email" type="email" {{--class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"--}} name="email" value="{{ old('email') }}" required autofocus>
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
-                        </div>
 
+                            <div class="layui-form-item">
+                                <label for="password" class="layui-form-label">{{ __('Password') }}</label>
+                                <div class="layui-input-block">
 
+                                    <input id="password" type="password" class="layui-input{{--form-control{{ $errors->has('password') ? ' is-invalid' : '' }}--}}" name="password" required>
+
+                                        @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" for="remember"></label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="remember" lay-skin="primary" id="remember" title=" {{ __('Remember Me') }} " {{ old('remember') ? 'checked' : '' }}>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+
+                                    @if (Route::has('login'))
+                                        @auth
+                                        <div style="display: inline-block">
+                                            <a class="layui-btn btn-primary" href="{{ url('/home') }}">首页</a>
+                                        </div>
+                                    @else
+                                        <button type="submit" class="layui-btn btn-primary">
+                                            {{ __('Login') }}
+                                        </button>
+                                    @endauth
+                                    @endif
+                                    @if (Route::has('password.request'))
+                                        <a class="" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs"{{ __('Documentation') }}></a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">{{ __('News') }}</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
+</div>
+
+        {{--layui--}}
+        <script src="{{ asset('layui/layui.js') }}" charset="utf-8"></script>
+        <script>
+            layui.use(['form', 'layedit', 'laydate'], function(){
+                var form = layui.form
+                    ,layer = layui.layer
+                    ,layedit = layui.layedit
+                    ,laydate = layui.laydate;
+            })
+        </script>
     </body>
 </html>
